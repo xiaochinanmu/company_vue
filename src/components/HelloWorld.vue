@@ -147,7 +147,7 @@ th {
       <el-switch v-model="value1"/>
     </div>
 
-    <el-table :data="devices" style="width: 100%; margin-top: 0px;" >
+    <el-table :data="devices" style="width: 100%; margin-top: 20px;" >
       <el-table-column label="设备ID" prop="device_register_id" sortable></el-table-column>
       <el-table-column label="车牌号" prop="plate_number"></el-table-column>
       <el-table-column label="区域" prop="district_name" sortable></el-table-column>
@@ -155,7 +155,7 @@ th {
       <el-table-column label="上传次数" prop="upload_count"></el-table-column>
       <el-table-column label="在线时长" prop="online_time"></el-table-column>
       <el-table-column label="行驶距离" prop="mileage"></el-table-column>
-      <el-table-column label="是否上线" prop="is_uplond"></el-table-column>
+      <el-table-column label="是否上线" prop="is_uplond" sortable></el-table-column>
     </el-table>
 
     <!-- <div v-else>
@@ -201,10 +201,31 @@ export default {
       value1:true
     };
   },
+  created() {
+  // 获取当前日期并格式化为 "YYYY-MM-DD"
+  const now = new Date();
+  // const seven_DaysAgo = now - (7 * 24 * 60 * 60);
+  // const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');  // 获取月份并保证两位数
+  const day = String(now.getDate()).padStart(2, '0');  // 获取日期并保证两位数
+// 计算七天前的日期
+const seven_DaysAgo = new Date(now);
+  seven_DaysAgo.setDate(now.getDate() - 7);  // 设置日期为当前日期减去7天
+
+  // 获取七天前的月份和日期
+  const seven_month = String(seven_DaysAgo.getMonth() + 1).padStart(2, '0');
+  const seven_day = String(seven_DaysAgo.getDate()).padStart(2, '0');
+
+  // 格式化为 "YYYY-MM-DD"
+  this.endTimeInput = `${month}-${day}`;
+  this.startTimeInput=`${seven_month}-${seven_day}`
+},
   methods: {
     async fetchData() {
       const currentYear = new Date().getFullYear();
+      console.log(currentYear); 
       let startTimeStr = `${currentYear}-${this.startTimeInput} 01:00:00`;
+      console.log(startTimeStr); 
       let endTimeStr = this.endTimeInput === "1" 
         ? new Date().toISOString() 
         : `${currentYear}-${this.endTimeInput} 23:59:59`;
@@ -266,3 +287,7 @@ export default {
   margin: 20px;
 }
 </style>
+
+
+
+

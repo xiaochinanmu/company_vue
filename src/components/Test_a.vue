@@ -112,9 +112,6 @@
   }
 </style> -->
 <template>
-  <el-card>
-    <h3>呵呵呵</h3>
-  </el-card>
     <el-card>
       <div ref="stackedBarChart" style="width: 100%; height: 400px;"></div>
     </el-card>
@@ -155,7 +152,7 @@
           },
           legend: {
             top: '10%',
-            data: ['设备上线', '设备未上线'],
+            data: ['设备未上线', '设备上线'],
           },
           grid: {
             top: '20%',
@@ -200,13 +197,18 @@
       // 获取设备数据
       const fetchDeviceData = async () => {
         try {
+            // 获取当前时间的时间戳
+            const now = Math.floor(Date.now() / 1000);  // 当前时间，单位为秒
+
+            // 计算七天前的时间戳
+            const sevenDaysAgo = now - (7 * 24 * 60 * 60);  // 七天前的时间戳
             const data = {
                 bind_status: [1],
-                end_time: 1733414399,
+                end_time: now,
                 page: 1,
                 page_size: 999,
                 sort: 'asc',
-                start_time: 1732896000
+                start_time: sevenDaysAgo
             };
           const response = await axios.post("http://console.wintoo.io/api/v4/device/device_status_list", data);
   

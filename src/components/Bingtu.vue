@@ -30,11 +30,11 @@
         try {
             const data = {
                 bind_status: [1],
-                end_time: 1733327999,
+                // end_time: 1733327999,
                 page: 1,
                 page_size: 999,
                 sort: 'asc',
-                start_time: 1733241600
+                // start_time: 1733241600
             };
           const response = await axios.post('http://console.wintoo.io/api/v4/device/device_status_list',data); // 替换为你的 API 接口
           responseData.value = response.data.response.data; // 获取数据数组
@@ -120,7 +120,7 @@
   
   <style scoped>
   .chart-container {
-    height: 1000px;
+    height: 900px;
   }
   </style>
   
