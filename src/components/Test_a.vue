@@ -112,6 +112,9 @@
   }
 </style> -->
 <template>
+  <el-card>
+    <h3>呵呵呵</h3>
+  </el-card>
     <el-card>
       <div ref="stackedBarChart" style="width: 100%; height: 400px;"></div>
     </el-card>

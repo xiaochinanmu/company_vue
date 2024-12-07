@@ -1,4 +1,5 @@
 <template>
+  <el-card>
     <el-row class="tac">
       <el-col :span="24">
         <h5 class="mb-2">菜单</h5>
@@ -35,6 +36,7 @@
         </el-menu>
       </el-col>
     </el-row>
+  </el-card>
   </template>
   
   <!-- <script lang="ts" setup>

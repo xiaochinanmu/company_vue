@@ -1,10 +1,12 @@
 <template>
+  <el-card>
     <div >
       <h1>从 API 获取的数据:</h1>
       <div v-if="loading">加载中...</div>
       <div v-else-if="error">发生错误: {{ error }}</div>
       <div v-else>{{ data }}</div>
     </div>
+  </el-card>
   </template>
   
   <script>

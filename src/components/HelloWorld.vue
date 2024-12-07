@@ -135,17 +135,19 @@ th {
 
 
 <template>
+  <el-card class="device-status-card">
   <div class="device-status">
     <div style="display: flex; align-items: center;">
       <label for="start-time">开始时间:</label>
       <el-input v-model="startTimeInput" id="start-time" placeholder="MM-DD" style="width: 150px; margin-right: 20px;" />
       <label for="end-time">结束时间:</label>
       <el-input v-model="endTimeInput" id="end-time" placeholder="MM-DD" style="width: 150px; margin-right: 20px;" />
-      <el-button @click="fetchData" type="primary">查询</el-button>
-      <el-switch v-model="value1" />
+      <el-button @click="fetchData" type="primary"  style=" margin-right: 20px;" >查询</el-button>
+      <label style=" margin-right: 5px;">分页功能</label>
+      <el-switch v-model="value1"/>
     </div>
 
-    <el-table :data="devices" style="width: 100%;margin-top: 50px;" >
+    <el-table :data="devices" style="width: 100%; margin-top: 0px;" >
       <el-table-column label="设备ID" prop="device_register_id" sortable></el-table-column>
       <el-table-column label="车牌号" prop="plate_number"></el-table-column>
       <el-table-column label="区域" prop="district_name" sortable></el-table-column>
@@ -162,15 +164,17 @@ th {
 
   
     <el-pagination
-      v-if="value1==false&&totalCount > 0"
+      v-if="value1==true&&totalCount > 0"
       :current-page="currentPage"
       :page-size="pageSize"
       :total="totalCount"
       @current-change="handlePageChange"
       layout="total, prev, pager, next, jumper"
-      style="margin-top: 20px; text-align: center;"
+    
+      style="position: sticky; bottom: 0; left: 0; width: 100%; text-align: center; margin-top: 20px;"
     />
   </div>
+</el-card>
 </template>
 
 <script>
@@ -194,7 +198,7 @@ export default {
       totalCount: 0,       // 数据总数
       currentPage: 1,      // 当前页数
       pageSize: 20,         // 每页显示的数量
-      value1:false
+      value1:true
     };
   },
   methods: {
@@ -220,7 +224,7 @@ export default {
       };
 
       try {
-        if(this.value1==true){
+        if(this.value1==false){  //是否使用分页功能
           data.page_size=1000
         }
         const response = await axios.post("http://console.wintoo.io/api/v4/device/device_status_list", data);
@@ -257,8 +261,8 @@ export default {
 };
 </script>
 
-<!-- <style scoped>
+<style scoped>
 .device-status {
   margin: 20px;
 }
-</style> -->
+</style>
